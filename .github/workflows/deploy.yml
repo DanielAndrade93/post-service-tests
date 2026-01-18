@@ -9,13 +9,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Instalar Railway CLI
-        run: npm i -g @railway/cli
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - run: npm i -g @railway/cli
 
       - name: Deploy no Railway
         run: railway up
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          NODE_ENV: production
